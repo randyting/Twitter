@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 let twitterConsumerKey = "k1czNm79JKV5T5WLd8lPSSDBB"
 let twitterConsumerSecret = "kJzE1C4Giq4MTHNVshWRgJqLDL7Mx4ShHSjS7ZmxzyQWvIoGLw"
@@ -22,6 +23,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
     return Static.instance
   }
+  
+  // MARK: - Login
   
   func loginWithCompletion(completion: (user: TwitterUser?, error: NSError?) -> ()){
     loginCompletion = completion
@@ -49,10 +52,24 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
       success: {
         (accessToken: BDBOAuth1Credential!) -> Void in
         print("Received Access Token")
-        TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
+        self.requestSerializer.saveAccessToken(accessToken)
+        self.getLoggedInUser(self.loginCompletion)
       }) {
         (error: NSError!) -> Void in
         self.loginCompletion?(user: nil, error: error)
+    }
+  }
+  
+  private func getLoggedInUser(completion: ((user: TwitterUser?, error: NSError?) -> ())?){
+    self.GET("/1.1/account/verify_credentials.json",
+      parameters: nil,
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let userDetails = JSON.init(response)
+        let currentUser = TwitterUser.init(dictionary: userDetails.dictionary!)
+        completion?(user: currentUser, error: nil)
+        
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion?(user: nil, error: error)
     }
   }
   

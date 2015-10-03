@@ -5,6 +5,9 @@
       location = "group:Twitter.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SwiftyJSON/SwiftyJSON.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
