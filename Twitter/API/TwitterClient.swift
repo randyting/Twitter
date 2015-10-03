@@ -76,22 +76,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
   // MARK: - Access
   func homeTimelineWithParams(parameters: TwitterHomeTimelineParameters?, completion: (tweets: [Tweet]?, error: NSError? ) -> () ){
     
-    // Make NSDictionary of parameters
-    var params: [String: AnyObject]?
-    params = [:]
-    if let parameters = parameters {
-      let parameterDictionary = parameters.namesAndValues()
-      for (name, value) in parameterDictionary {
-        if let value = value {
-          params![name] = value
-        }
-      }
-    } else {
-      params = nil
-    }
-  
     self.GET("/1.1/statuses/home_timeline.json",
-      parameters: params,
+      parameters: parameters?.dictionary,
       success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         let tweetsAsJSON  = JSON.init(response).array!
         let tweets = Tweet.tweets(array: tweetsAsJSON)

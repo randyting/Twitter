@@ -14,11 +14,28 @@ class TwitterHomeTimelineParameters: NSObject {
   var sinceId: Int?
   var maxId: Int?
   
+  var dictionary: [String:AnyObject]?{
+    get {
+      var params: [String: AnyObject]? = [:]
+      let parameterDictionary = namesAndValues()
+      for (name, value) in parameterDictionary {
+        if let value = value {
+          params![name] = value
+        }
+      }
+      if params?.count == 0 {
+        return nil
+      } else {
+        return params
+      }
+    }
+  }
+  
   override init() {
     super.init()
   }
   
-  func namesAndValues() -> [String:AnyObject?] {
+  private func namesAndValues() -> [String:AnyObject?] {
     let dictionary: [String: AnyObject?] =
     [
       "count"   : self.count,
@@ -27,8 +44,6 @@ class TwitterHomeTimelineParameters: NSObject {
     ]
     
     return dictionary
-  }
+  } 
   
-
-
 }
