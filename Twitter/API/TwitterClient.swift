@@ -61,7 +61,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
   }
   
   private func getLoggedInUser(completion: ((user: TwitterUser?, error: NSError?) -> ())?){
-    self.GET("/1.1/account/verify_credentials.json",
+    GET("/1.1/account/verify_credentials.json",
       parameters: nil,
       success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         let userDetails = JSON.init(response)
@@ -71,6 +71,26 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
       }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         completion?(user: nil, error: error)
     }
+  }
+  
+  // MARK: - Access
+  func homeTimelineWithParams(parameters: TwitterUser.HomeTimelineParameters?, completion: (tweets: [Tweet]?, error: NSError? ) -> () ){
+    
+    var params = [String: AnyObject]()
+    
+    // Make NSDictionary of parameters
+    
+    self.GET("/1.1/statuses/home_timeline.json",
+      parameters: params,
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let tweetsAsJSON  = JSON.init(response).array!
+        let tweets = Tweet.tweets(array: tweetsAsJSON)
+        completion(tweets: tweets, error: nil)
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion(tweets: nil, error: error)
+    }
+    
+    
   }
   
 }

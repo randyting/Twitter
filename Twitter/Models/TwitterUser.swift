@@ -54,6 +54,17 @@ class TwitterUser: NSObject {
     NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
   }
   
+  func homeTimelineWithParams(params: HomeTimelineParameters?, completion: (tweets: [Tweet]?, error: NSError?) -> ()){
+    TwitterClient.sharedInstance.homeTimelineWithParams(params) { (tweets, error) -> () in
+      if let error = error {
+        completion(tweets: nil, error: error)
+      } else {
+        completion(tweets: tweets, error: nil)
+      }
+    }
+  }
+  
+  
   // MARK: - Class Methods
   
   class func loginWithCompletion(completion: (user: TwitterUser?, error: NSError?) -> ()) {
@@ -78,6 +89,13 @@ class TwitterUser: NSObject {
       }
       NSUserDefaults.standardUserDefaults().synchronize()
     }
+  }
+  
+  // MARK: - Parameters
+  struct HomeTimelineParameters {
+    var count: Int
+    var sinceId: Int
+    var maxId: Int
   }
   
 }

@@ -15,6 +15,7 @@ class TweetsViewController: UIViewController {
   
   // MARK: - Properities
   var currentUser: TwitterUser!
+  var tweets: [Tweet]?
   
   // MARK: - Storyboard
   @IBOutlet weak var tweetsTableView: UITableView!
@@ -26,6 +27,11 @@ class TweetsViewController: UIViewController {
     setupTweetsTableView(tweetsTableView)
     title = "Home"
     currentUser = TwitterUser.currentUser
+    currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
+      self.tweets = tweets
+      print(self.tweets)
+      self.tweetsTableView.reloadData()
+    }
 
   }
   
@@ -65,13 +71,17 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tweetsTableView.dequeueReusableCellWithIdentifier(tweetsCellReuseIdentifier, forIndexPath: indexPath)
     
-    cell.textLabel!.text = currentUser.name
+    cell.textLabel!.text = tweets?[indexPath.row].text
     
     return cell
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    if let tweets = tweets {
+      return tweets.count
+    } else {
+      return 0
+    }
   }
   
   

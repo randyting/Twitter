@@ -38,4 +38,13 @@ class Tweet: NSObject {
     super.init()
   }
   
+  class func tweets(array array: [JSON]) -> [Tweet] {
+    var tweets = [Tweet]()
+    for tweet in array {
+      let tweetDictionary = tweet.dictionary!
+      tweets.append(Tweet.init(dictionary: tweetDictionary ))
+    }
+    return tweets
+  }
+  
 }
