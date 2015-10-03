@@ -10,6 +10,7 @@
 		6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6F2AA6D21BBF468B005C4769 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; };
 		6F2AA6D31BBF468B005C4769 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6F2AA6D61BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */; settings = {ASSET_TAGS = (); }; };
 		6F7C6B231BBB932900B865C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C6B221BBB932900B865C0 /* AppDelegate.swift */; };
 		6F7C6B2A1BBB932900B865C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C6B291BBB932900B865C0 /* Assets.xcassets */; };
 		6F7C6B3D1BBB95E800B865C0 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C6B3C1BBB95E800B865C0 /* credentials.plist */; settings = {ASSET_TAGS = (); }; };
@@ -41,6 +42,7 @@
 		301C8EC6D43CB443268D00FE /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 		6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetsViewController.swift; path = ViewControllers/TweetsViewController.swift; sourceTree = "<group>"; };
 		6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/Twitter-hdftauabtigwxxgrcalpyrggyggl/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterHomeTimelineParameters.swift; path = Models/TwitterHomeTimelineParameters.swift; sourceTree = "<group>"; };
 		6F7C6B1F1BBB932900B865C0 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7C6B221BBB932900B865C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Application/AppDelegate.swift; sourceTree = "<group>"; };
 		6F7C6B291BBB932900B865C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Application/Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				6F8888621BBBC8D10017377E /* TwitterUser.swift */,
 				6F8888641BBBC9EA0017377E /* Tweet.swift */,
+				6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -152,9 +155,9 @@
 		6F7C6B3A1BBB94BC00B865C0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */,
 				6FD156A41BBB9DCE00AB8A8B /* TwitterLoginViewController.swift */,
 				6F7C6B401BBB96CA00B865C0 /* Main.storyboard */,
-				6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */,
 				6FD156A51BBB9DCE00AB8A8B /* TwitterLoginViewController.swift in Sources */,
 				6F8888631BBBC8D10017377E /* TwitterUser.swift in Sources */,
+				6F2AA6D61BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift in Sources */,
 				6F7C6B231BBB932900B865C0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

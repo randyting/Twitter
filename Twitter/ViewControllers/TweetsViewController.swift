@@ -25,14 +25,8 @@ class TweetsViewController: UIViewController {
     super.viewDidLoad()
     
     setupTweetsTableView(tweetsTableView)
-    title = "Home"
-    currentUser = TwitterUser.currentUser
-    currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
-      self.tweets = tweets
-      print(self.tweets)
-      self.tweetsTableView.reloadData()
-    }
-
+    //    setupInitialValues()
+    loadFiveTweets()
   }
   
   override func didReceiveMemoryWarning() {
@@ -44,6 +38,25 @@ class TweetsViewController: UIViewController {
   private func setupTweetsTableView(tableView: UITableView){
     tableView.dataSource = self
     tableView.delegate = self
+  }
+  
+  private func setupInitialValues(){
+    title = "Home"
+    currentUser = TwitterUser.currentUser
+    currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
+      self.tweets = tweets
+      self.tweetsTableView.reloadData()
+    }
+  }
+  
+  private func loadFiveTweets() {
+    currentUser = TwitterUser.currentUser
+    let params = TwitterHomeTimelineParameters()
+    params.count = 5
+    currentUser.homeTimelineWithParams(params) { (tweets, error) -> () in
+      self.tweets = tweets
+      self.tweetsTableView.reloadData()
+    }
   }
   
   // MARK: - Behavior
@@ -64,7 +77,7 @@ class TweetsViewController: UIViewController {
   
 }
 
-  // MARK: - UITableView Delegate and Datasource
+// MARK: - UITableView Delegate and Datasource
 
 extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
   
