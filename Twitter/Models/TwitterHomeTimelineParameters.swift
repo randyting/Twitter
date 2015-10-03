@@ -44,6 +44,6 @@ class TwitterHomeTimelineParameters: NSObject {
     ]
     
     return dictionary
-  } 
+  }
   
 }
