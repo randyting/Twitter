@@ -18,6 +18,8 @@ class Tweet: NSObject {
   let text: String!
   let userName: String!
   let userScreenname: String!
+  let profileImageURL: NSURL!
+  var mediaURL: NSURL?
   
   var favorited: Bool!
   var retweeted: Bool!
@@ -31,7 +33,19 @@ class Tweet: NSObject {
     text = dictionary["text"]?.string
     userName = dictionary["user"]!["name"].string
     userScreenname = dictionary["user"]!["screen_name"].string
-
+    
+    var profileImageURLString = dictionary["user"]!["profile_image_url_https"].string
+    let range = profileImageURLString!.rangeOfString("normal.jpg", options: .RegularExpressionSearch)
+    if let range = range {
+      profileImageURLString = profileImageURLString!.stringByReplacingCharactersInRange(range, withString: "bigger.jpg")
+    }
+    profileImageURL = NSURL(string: profileImageURLString!)
+    
+    
+    if let mediaURLString = dictionary["entities"]?["media"][0]["media_url_https"].string {
+      mediaURL = NSURL(string: mediaURLString)
+    }
+    
     favorited = dictionary["favorited"]?.bool
     retweeted = dictionary["retweeted"]?.bool
     

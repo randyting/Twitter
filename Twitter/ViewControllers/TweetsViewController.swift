@@ -25,8 +25,7 @@ class TweetsViewController: UIViewController {
     super.viewDidLoad()
     
     setupTweetsTableView(tweetsTableView)
-    //    setupInitialValues()
-    loadFiveTweets()
+    setupInitialValues()
   }
   
   override func didReceiveMemoryWarning() {
@@ -38,6 +37,8 @@ class TweetsViewController: UIViewController {
   private func setupTweetsTableView(tableView: UITableView){
     tableView.dataSource = self
     tableView.delegate = self
+    tableView.estimatedRowHeight = 300
+    tableView.rowHeight = UITableViewAutomaticDimension
   }
   
   private func setupInitialValues(){
@@ -82,9 +83,9 @@ class TweetsViewController: UIViewController {
 extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tweetsTableView.dequeueReusableCellWithIdentifier(tweetsCellReuseIdentifier, forIndexPath: indexPath)
+    let cell = tweetsTableView.dequeueReusableCellWithIdentifier(tweetsCellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
     
-    cell.textLabel!.text = tweets?[indexPath.row].text
+    cell.tweet = tweets?[indexPath.row]
     
     return cell
   }
