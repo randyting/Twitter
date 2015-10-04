@@ -10,15 +10,17 @@ import UIKit
 
 class TwitterLoginViewController: UIViewController {
   
-  let loginSegueIdentifier = "loginSegue"
+  // MARK: - Constants
+  private let loginSegueIdentifier = "loginSegue"
   
+  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     attemptToLogin()
   }
   
-  func attemptToLogin() {
+  // MARK: - Convenience
+  private func attemptToLogin() {
     TwitterUser.loginWithCompletion { (user: TwitterUser?, error: NSError?) -> () in
       if let error = error {
         print(error.localizedDescription)
@@ -35,9 +37,11 @@ class TwitterLoginViewController: UIViewController {
     }
   }
   
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  // MARK: - Behavior
+  @IBAction func onTapLoginButton(sender: AnyObject) {
+    attemptToLogin()
   }
+  
+
   
 }

@@ -12,11 +12,12 @@ class TweetsViewController: UIViewController {
   
   // MARK: - Constants
   private let tweetsCellReuseIdentifier = "tweetsCellReuseIdentifier"
+  private let newTweetSegueIdentifier = "NewTweetSegue"
   
   // MARK: - Properities
-  var currentUser: TwitterUser!
-  var tweets: [Tweet]?
-  let refreshControl = UIRefreshControl()
+  private var currentUser: TwitterUser!
+  private var tweets: [Tweet]?
+  private let refreshControl = UIRefreshControl()
   
   // MARK: - Storyboard
   @IBOutlet weak var tweetsTableView: UITableView!
@@ -28,6 +29,7 @@ class TweetsViewController: UIViewController {
     setupTweetsTableView(tweetsTableView)
     setupRefreshControl(refreshControl)
     setupInitialValues()
+    
   }
   
   override func didReceiveMemoryWarning() {
@@ -80,15 +82,15 @@ class TweetsViewController: UIViewController {
     }
   }
   
-  /*
   // MARK: - Navigation
   
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+    if segue.identifier == newTweetSegueIdentifier {
+      let vc = segue.destinationViewController as? NewTweetViewController
+      vc?.currentUser = currentUser
+      vc?.delegate = self
+    }
   }
-  */
   
 }
 
@@ -127,5 +129,13 @@ extension TweetsViewController: TweetTableViewCellDelegate {
 //      })
 //    }
 
+  }
+}
+
+  // MARK: - NewTweetViewController Delegate
+
+extension TweetsViewController: NewTweetViewControllerDelegate {
+  func newTweetViewController(newTweetViewController: NewTweetViewController, didPostTweetText: String) {
+    refreshTweets()
   }
 }

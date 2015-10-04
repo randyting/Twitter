@@ -17,21 +17,21 @@ class TweetTableViewCell: UITableViewCell {
   
   // MARK: - Storyboard Objects
   
-  @IBOutlet weak var profileImageView: UIImageView!
-  @IBOutlet weak var mediaImageView: UIImageView!
-  @IBOutlet weak var tweetTextLabel: UILabel!
-  @IBOutlet weak var timeSinceCreationLabel: UILabel!
-  @IBOutlet weak var userNameLabel: UILabel!
-  @IBOutlet weak var userScreenNameLabel: UILabel!
+  @IBOutlet private weak var profileImageView: UIImageView!
+  @IBOutlet private weak var mediaImageView: UIImageView!
+  @IBOutlet private weak var tweetTextLabel: UILabel!
+  @IBOutlet private weak var timeSinceCreationLabel: UILabel!
+  @IBOutlet private weak var userNameLabel: UILabel!
+  @IBOutlet private weak var userScreenNameLabel: UILabel!
   
-  @IBOutlet weak var replyButton: UIButton!
-  @IBOutlet weak var retweetButton: UIButton!
-  @IBOutlet weak var retweetCountLabel: UILabel!
+  @IBOutlet private weak var replyButton: UIButton!
+  @IBOutlet private weak var retweetButton: UIButton!
+  @IBOutlet private weak var retweetCountLabel: UILabel!
   
-  @IBOutlet weak var favoriteButton: UIButton!
-  @IBOutlet weak var favoriteCountLabel: UILabel!
+  @IBOutlet private weak var favoriteButton: UIButton!
+  @IBOutlet private weak var favoriteCountLabel: UILabel!
   
-  @IBOutlet weak var followButton: UIButton!
+  @IBOutlet private weak var followButton: UIButton!
   
 
   // MARK: - Properties

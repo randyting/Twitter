@@ -20,14 +20,17 @@ class TwitterUser: NSObject {
   // MARK: - Instance Properties
   let name: String!
   let screenname: String!
-  let profileImageURL: String!
+  let profileImageURLString: String!
   
   // MARK: - Initialization
   init(dictionary: [String: JSON]){
     
-    self.name = dictionary["name"]?.string
-    self.screenname = dictionary["screen_name"]?.string
-    self.profileImageURL = dictionary["profile_image_url"]?.string
+    name = dictionary["name"]?.string
+    screenname = dictionary["screen_name"]?.string
+    
+    let profileImageURLStringRaw = dictionary["profile_image_url_https"]?.string
+    let range = profileImageURLStringRaw!.rangeOfString("normal", options: .RegularExpressionSearch)
+    profileImageURLString = profileImageURLStringRaw!.stringByReplacingCharactersInRange(range!, withString: "bigger")
     
     super.init()
     TwitterUser.currentUser = self
@@ -38,13 +41,13 @@ class TwitterUser: NSObject {
   required init(coder aDecoder: NSCoder) {
     self.name = aDecoder.decodeObjectForKey("name") as! String
     self.screenname = aDecoder.decodeObjectForKey("screenname") as! String
-    self.profileImageURL = aDecoder.decodeObjectForKey("profileImageURL") as! String
+    self.profileImageURLString = aDecoder.decodeObjectForKey("profileImageURLString") as! String
   }
   
   func encodeWithCoder(aCoder: NSCoder) {
     aCoder.encodeObject(name, forKey: "name")
     aCoder.encodeObject(screenname, forKey: "screenname")
-    aCoder.encodeObject(profileImageURL, forKey: "profileImageURL")
+    aCoder.encodeObject(profileImageURLString, forKey: "profileImageURLString")
   }
   
   // MARK: - Instance Methods
@@ -64,6 +67,9 @@ class TwitterUser: NSObject {
     }
   }
   
+  func profileImageURL() -> NSURL? {
+    return NSURL(string: profileImageURLString)
+  }
   
   // MARK: - Class Methods
   
@@ -71,14 +77,18 @@ class TwitterUser: NSObject {
     TwitterClient.sharedInstance.loginWithCompletion(completion)
   }
   
+  class func tweetText(text: String?, completion: (success: Bool?, error: NSError?) -> ()) {
+    TwitterClient.sharedInstance.tweetText(text, completion: completion)
+  }
+  
   
   // MARK: - Class Variables
   class var currentUser: TwitterUser?{
     get {
-      if let archivedUser = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) {
-        return NSKeyedUnarchiver.unarchiveObjectWithData(archivedUser as! NSData) as? TwitterUser
-      }
-      return nil
+    if let archivedUser = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey) {
+    return NSKeyedUnarchiver.unarchiveObjectWithData(archivedUser as! NSData) as? TwitterUser
+    }
+    return nil
     }
     set(user) {
       if let user = user {
