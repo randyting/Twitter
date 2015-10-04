@@ -12,6 +12,7 @@
 		6F1CA5331BC0D49700658BC0 /* NewTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA5321BC0D49700658BC0 /* NewTweetViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6F1CA5371BC113DE00658BC0 /* TwitterDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */; settings = {ASSET_TAGS = (); }; };
 		6F1CA53B1BC11EA600658BC0 /* TweetDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA53A1BC11EA600658BC0 /* TweetDetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6F1CA53D1BC1AD3100658BC0 /* TwitterDetailDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA53C1BC1AD3100658BC0 /* TwitterDetailDateFormatter.swift */; settings = {ASSET_TAGS = (); }; };
 		6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6F2AA6D21BBF468B005C4769 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; };
 		6F2AA6D31BBF468B005C4769 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -50,6 +51,7 @@
 		6F1CA5321BC0D49700658BC0 /* NewTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewTweetViewController.swift; path = ViewControllers/NewTweetViewController.swift; sourceTree = "<group>"; };
 		6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterDateFormatter.swift; path = Models/TwitterDateFormatter.swift; sourceTree = "<group>"; };
 		6F1CA53A1BC11EA600658BC0 /* TweetDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetDetailTableViewController.swift; path = ViewControllers/TweetDetailTableViewController.swift; sourceTree = "<group>"; };
+		6F1CA53C1BC1AD3100658BC0 /* TwitterDetailDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterDetailDateFormatter.swift; path = Models/TwitterDetailDateFormatter.swift; sourceTree = "<group>"; };
 		6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetsViewController.swift; path = ViewControllers/TweetsViewController.swift; sourceTree = "<group>"; };
 		6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/Twitter-hdftauabtigwxxgrcalpyrggyggl/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterHomeTimelineParameters.swift; path = Models/TwitterHomeTimelineParameters.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				6F8888641BBBC9EA0017377E /* Tweet.swift */,
 				6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */,
 				6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */,
+				6F1CA53C1BC1AD3100658BC0 /* TwitterDetailDateFormatter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			files = (
 				6FD156A31BBB9AAD00AB8A8B /* TwitterClient.swift in Sources */,
 				6F8888651BBBC9EA0017377E /* Tweet.swift in Sources */,
+				6F1CA53D1BC1AD3100658BC0 /* TwitterDetailDateFormatter.swift in Sources */,
 				6F1CA53B1BC11EA600658BC0 /* TweetDetailTableViewController.swift in Sources */,
 				6F1CA5311BC0BBA400658BC0 /* WordWrappedLabel.swift in Sources */,
 				6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */,

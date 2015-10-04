@@ -104,4 +104,40 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
   }
   
+  func favorite(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    
+    let parameters = ["id": tweet.idString]
+    
+    POST("/1.1/favorites/create.json",
+      parameters: parameters,
+      constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
+        //
+      },
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let favoriteResponseAsJSON  = JSON.init(response).dictionary!
+        tweet.favoriteCount = favoriteResponseAsJSON["favorite_count"]?.int
+        completion(response: response, error: nil)
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion(response: nil, error: error)
+    }
+  }
+  
+  func unfavorite(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    
+    let parameters = ["id": tweet.idString]
+    
+    POST("/1.1/favorites/destroy.json",
+      parameters: parameters,
+      constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
+        //
+      },
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let favoriteResponseAsJSON  = JSON.init(response).dictionary!
+        tweet.favoriteCount = favoriteResponseAsJSON["favorite_count"]?.int
+        completion(response: response, error: nil)
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion(response: nil, error: error)
+    }
+  }
+  
 }

@@ -12,10 +12,10 @@ import SwiftyJSON
 class Tweet: NSObject {
   
   let createdAt: String!
-  let favoriteCount: Int!
+  var favoriteCount: Int!
   let idString: String!
   let id: Int!
-  let retweetCount: Int!
+  var retweetCount: Int!
   let text: String!
   let userName: String!
   let userScreenname: String!

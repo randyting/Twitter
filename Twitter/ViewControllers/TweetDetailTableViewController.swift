@@ -28,6 +28,8 @@ class TweetDetailTableViewController: UITableViewController {
   
   var tweet: Tweet!
   
+  // MARK: - Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -37,16 +39,41 @@ class TweetDetailTableViewController: UITableViewController {
     userScreennameLabel.text = "@" + tweet.userScreenname
     favoriteCountLabel.text = String(tweet.favoriteCount)
     retweetCountLabel.text = String(tweet.retweetCount)
+    createdTimeLabel.text = TwitterDetailDateFormatter.sharedInstance.stringFromDate(TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)!)
+    
     
 //    self.tableView.estimatedRowHeight = 100
 //    self.tableView.rowHeight = UITableViewAutomaticDimension
-
-    
 //    view.setNeedsUpdateConstraints()
 //    UIView.animateWithDuration(0.4, animations: {
 //      self.view.layoutIfNeeded()
 //    })
+    
+    
   }
+  
+  // MARK: - Behavior
+  
+  @IBAction func onTapFavoriteButton(sender: AnyObject) {
+    if tweet.favorited == true{
+      TwitterUser.unfavorite(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Unfavorite Error: \(error.localizedDescription)")
+        } else {
+          self.favoriteCountLabel.text = String(self.tweet.favoriteCount)
+        }
+      }
+    } else {
+      TwitterUser.favorite(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Favorite Error: \(error.localizedDescription)")
+        } else {
+          self.favoriteCountLabel.text = String(self.tweet.favoriteCount)
+        }
+      }
+    }
+  }
+
   
   
 

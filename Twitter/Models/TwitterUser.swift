@@ -81,6 +81,14 @@ class TwitterUser: NSObject {
     TwitterClient.sharedInstance.tweetText(text, inReplyToStatusID: inReplyToStatusID, completion: completion)
   }
   
+  class func favorite(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    TwitterClient.sharedInstance.favorite(tweet, completion: completion)
+  }
+  
+  class func unfavorite(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    TwitterClient.sharedInstance.unfavorite(tweet, completion: completion)
+  }
+  
   
   // MARK: - Class Variables
   class var currentUser: TwitterUser?{
