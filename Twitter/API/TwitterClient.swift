@@ -161,5 +161,50 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
   }
   
+  func unretweet(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    
+    var originalTweetIdString = String()
+    
+    if tweet.retweeted == false {
+      let error = NSError.init(domain: "com.randy.Twitter", code: 0, userInfo: ["Error reason": "Tweet has not been retweeted."])
+      completion(response: nil, error: error)
+    } else {
+      if tweet.retweetedStatus == nil {
+        originalTweetIdString = tweet.idString
+      } else {
+        originalTweetIdString = tweet.originalTweetIdString!
+      }
+    }
+    
+    GET("https://api.twitter.com/1.1/statuses/show.json?id=" + originalTweetIdString,
+      parameters: ["id": originalTweetIdString,
+                    "include_my_retweet": true],
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let tweetAsJSON  = JSON.init(response).dictionary!
+        let retweetIDString = (tweetAsJSON["current_user_retweet"]?["id_str"].string)!
+        
+        let parameters = ["id": retweetIDString]
+        
+        self.POST("/1.1/statuses/destroy/" + retweetIDString + ".json",
+          parameters: parameters,
+          constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
+            //
+          },
+          success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let unretweetedResponseAsJSON  = JSON.init(response).dictionary!
+            tweet.retweeted = false  // Looks like Twitter's servers take a while to update this it false
+            tweet.retweetCount = unretweetedResponseAsJSON["retweet_count"]?.int
+            completion(response: response, error: nil)
+          }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            completion(response: nil, error: error)
+        }
+        
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion(response: nil, error: error)
+    }
+    
+
+  }
+  
   
 }

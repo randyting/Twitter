@@ -93,6 +93,10 @@ class TwitterUser: NSObject {
     TwitterClient.sharedInstance.retweet(tweet, completion: completion)
   }
   
+  class func unretweet(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    TwitterClient.sharedInstance.unretweet(tweet, completion: completion)
+  }
+  
   // MARK: - Class Variables
   class var currentUser: TwitterUser?{
     get {

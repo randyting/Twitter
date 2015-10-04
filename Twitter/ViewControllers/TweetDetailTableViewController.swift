@@ -76,13 +76,13 @@ class TweetDetailTableViewController: UITableViewController {
 
   @IBAction func onTapRetweet(sender: AnyObject) {
     if tweet.retweeted == true{
-//      TwitterUser.unretweet(tweet) { (response, error) -> () in
-//        if let error = error {
-//          print("Unfavorite Error: \(error.localizedDescription)")
-//        } else {
-//          self.favoriteCountLabel.text = String(self.tweet.favoriteCount)
-//        }
-//      }
+      TwitterUser.unretweet(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Unretweet Error: \(error.localizedDescription)")
+        } else {
+          self.retweetCountLabel.text = String(self.tweet.retweetCount)
+        }
+      }
     } else {
       TwitterUser.retweet(tweet) { (response, error) -> () in
         if let error = error {

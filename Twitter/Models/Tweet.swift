@@ -20,6 +20,8 @@ class Tweet: NSObject {
   let userName: String!
   let userScreenname: String!
   let profileImageURL: NSURL!
+  let retweetedStatus: [String:JSON]?
+  let originalTweetIdString: String?
   var mediaURL: NSURL?
   
   var favorited: Bool!
@@ -35,6 +37,8 @@ class Tweet: NSObject {
     userName = dictionary["user"]!["name"].string
     userScreenname = dictionary["user"]!["screen_name"].string
     id = dictionary["id"]?.int
+    retweetedStatus = dictionary["retweeted_status"]?.dictionary
+    originalTweetIdString = dictionary["retweeted_status"]?["id_str"].string
     
     var profileImageURLString = dictionary["user"]!["profile_image_url_https"].string
     let range = profileImageURLString!.rangeOfString("normal.jpg", options: .RegularExpressionSearch)
