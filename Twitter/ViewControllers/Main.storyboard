@@ -375,10 +375,16 @@
                                                         <constraint firstAttribute="width" constant="75" id="gaY-xL-Y5r"/>
                                                     </constraints>
                                                     <state key="normal" title="Reply"/>
+                                                    <connections>
+                                                        <action selector="onTapReplyButton:" destination="e3V-5M-tWS" eventType="touchUpInside" id="S7A-n7-9jX"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nww-86-h5V">
                                                     <rect key="frame" x="75" y="0.0" width="75" height="30"/>
                                                     <state key="normal" title="Retweet"/>
+                                                    <connections>
+                                                        <action selector="onTapRetweet:" destination="e3V-5M-tWS" eventType="touchUpInside" id="eck-zR-gpg"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I9Q-iK-P2F">
                                                     <rect key="frame" x="151" y="0.0" width="75" height="30"/>

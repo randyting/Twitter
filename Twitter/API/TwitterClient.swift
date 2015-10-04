@@ -115,6 +115,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
       },
       success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
         let favoriteResponseAsJSON  = JSON.init(response).dictionary!
+        tweet.favorited = favoriteResponseAsJSON["favorited"]?.bool
         tweet.favoriteCount = favoriteResponseAsJSON["favorite_count"]?.int
         completion(response: response, error: nil)
       }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
@@ -132,12 +133,33 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         //
       },
       success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-        let favoriteResponseAsJSON  = JSON.init(response).dictionary!
-        tweet.favoriteCount = favoriteResponseAsJSON["favorite_count"]?.int
+        let unfavoriteResponseAsJSON  = JSON.init(response).dictionary!
+        tweet.favorited = unfavoriteResponseAsJSON["favorited"]?.bool
+        tweet.favoriteCount = unfavoriteResponseAsJSON["favorite_count"]?.int
         completion(response: response, error: nil)
       }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
         completion(response: nil, error: error)
     }
   }
+  
+  func retweet(tweet: Tweet, completion: (response: AnyObject?, error: NSError?) ->()){
+    
+    let parameters = ["id": tweet.idString]
+    
+    POST("/1.1/statuses/retweet/" + (tweet.idString) + ".json",
+      parameters: parameters,
+      constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
+        //
+      },
+      success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        let retweetedResponseAsJSON  = JSON.init(response).dictionary!
+        tweet.retweeted = retweetedResponseAsJSON["retweeted"]?.bool
+        tweet.retweetCount = retweetedResponseAsJSON["retweet_count"]?.int
+        completion(response: response, error: nil)
+      }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+        completion(response: nil, error: error)
+    }
+  }
+  
   
 }

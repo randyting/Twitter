@@ -33,6 +33,10 @@ class TweetsViewController: UIViewController {
     
   }
   
+  override func viewWillAppear(animated: Bool) {
+    refreshTweets()
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -148,6 +152,6 @@ extension TweetsViewController: TweetTableViewCellDelegate {
 
 extension TweetsViewController: NewTweetViewControllerDelegate {
   func newTweetViewController(newTweetViewController: NewTweetViewController, didPostTweetText: String) {
-    refreshTweets()
+    //
   }
 }
