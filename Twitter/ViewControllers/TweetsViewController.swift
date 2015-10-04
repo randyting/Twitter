@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController {
   // MARK: - Constants
   private let tweetsCellReuseIdentifier = "tweetsCellReuseIdentifier"
   private let newTweetSegueIdentifier = "NewTweetSegue"
+  private let tweetDetailSegueIdentifier = "TweetDetailTableViewControllerSegue"
   
   // MARK: - Properities
   private var currentUser: TwitterUser!
@@ -85,11 +86,18 @@ class TweetsViewController: UIViewController {
   // MARK: - Navigation
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
     if segue.identifier == newTweetSegueIdentifier {
       let vc = segue.destinationViewController as? NewTweetViewController
       vc?.currentUser = currentUser
       vc?.delegate = self
+    } else if segue.identifier == tweetDetailSegueIdentifier{
+      let cell = sender as? TweetTableViewCell
+      let vc = segue.destinationViewController as? TweetDetailTableViewController
+      vc?.tweet = tweets![tweetsTableView.indexPathForCell(cell!)!.row]
     }
+
+    
   }
   
 }
@@ -113,6 +121,10 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     } else {
       return 0
     }
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
   
 }
