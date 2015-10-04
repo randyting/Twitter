@@ -20,7 +20,7 @@ class TweetTableViewCell: UITableViewCell {
   @IBOutlet private weak var profileImageView: UIImageView!
   @IBOutlet private weak var mediaImageView: UIImageView!
   @IBOutlet private weak var tweetTextLabel: UILabel!
-  @IBOutlet private weak var timeSinceCreationLabel: UILabel!
+  @IBOutlet private weak var timeSinceCreatedDXTimestampLabel: DXTimestampLabel!
   @IBOutlet private weak var userNameLabel: UILabel!
   @IBOutlet private weak var userScreenNameLabel: UILabel!
   
@@ -72,6 +72,7 @@ class TweetTableViewCell: UITableViewCell {
       userScreenNameLabel.text = "@" + tweet.userScreenname
       favoriteCountLabel.text = String(tweet.favoriteCount)
       retweetCountLabel.text = String(tweet.retweetCount)
+      timeSinceCreatedDXTimestampLabel.timestamp = TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)
       
     }
   }

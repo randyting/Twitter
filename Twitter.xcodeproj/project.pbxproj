@@ -10,6 +10,7 @@
 		6F1CA52F1BC0860D00658BC0 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA52E1BC0860D00658BC0 /* TweetTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6F1CA5311BC0BBA400658BC0 /* WordWrappedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA5301BC0BBA400658BC0 /* WordWrappedLabel.swift */; settings = {ASSET_TAGS = (); }; };
 		6F1CA5331BC0D49700658BC0 /* NewTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA5321BC0D49700658BC0 /* NewTweetViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6F1CA5371BC113DE00658BC0 /* TwitterDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */; settings = {ASSET_TAGS = (); }; };
 		6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6F2AA6D21BBF468B005C4769 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; };
 		6F2AA6D31BBF468B005C4769 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -46,6 +47,7 @@
 		6F1CA52E1BC0860D00658BC0 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetTableViewCell.swift; path = Views/TweetTableViewCell.swift; sourceTree = "<group>"; };
 		6F1CA5301BC0BBA400658BC0 /* WordWrappedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordWrappedLabel.swift; path = Views/WordWrappedLabel.swift; sourceTree = "<group>"; };
 		6F1CA5321BC0D49700658BC0 /* NewTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewTweetViewController.swift; path = ViewControllers/NewTweetViewController.swift; sourceTree = "<group>"; };
+		6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterDateFormatter.swift; path = Models/TwitterDateFormatter.swift; sourceTree = "<group>"; };
 		6F2AA6CD1BBF3B04005C4769 /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetsViewController.swift; path = ViewControllers/TweetsViewController.swift; sourceTree = "<group>"; };
 		6F2AA6CF1BBF454A005C4769 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/Twitter-hdftauabtigwxxgrcalpyrggyggl/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterHomeTimelineParameters.swift; path = Models/TwitterHomeTimelineParameters.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				6F8888621BBBC8D10017377E /* TwitterUser.swift */,
 				6F8888641BBBC9EA0017377E /* Tweet.swift */,
 				6F2AA6D51BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift */,
+				6F1CA5361BC113DE00658BC0 /* TwitterDateFormatter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				6F1CA5311BC0BBA400658BC0 /* WordWrappedLabel.swift in Sources */,
 				6F2AA6CE1BBF3B04005C4769 /* TweetsViewController.swift in Sources */,
 				6FD156A51BBB9DCE00AB8A8B /* TwitterLoginViewController.swift in Sources */,
+				6F1CA5371BC113DE00658BC0 /* TwitterDateFormatter.swift in Sources */,
 				6F8888631BBBC8D10017377E /* TwitterUser.swift in Sources */,
 				6F2AA6D61BBFAD66005C4769 /* TwitterHomeTimelineParameters.swift in Sources */,
 				6F7C6B231BBB932900B865C0 /* AppDelegate.swift in Sources */,

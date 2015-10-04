@@ -72,7 +72,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2d" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCi-Qi-btl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2d" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCi-Qi-btl" customClass="DXTimestampLabel">
                                                     <rect key="frame" x="291" y="15" width="14" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -177,7 +177,7 @@
                                             <outlet property="replyButton" destination="a2q-it-9kc" id="UJe-bY-HOi"/>
                                             <outlet property="retweetButton" destination="itn-VU-8Bm" id="SWQ-5j-Fdi"/>
                                             <outlet property="retweetCountLabel" destination="UJw-gL-HNJ" id="lJh-Xw-xVp"/>
-                                            <outlet property="timeSinceCreationLabel" destination="KCi-Qi-btl" id="7Q1-SP-6yu"/>
+                                            <outlet property="timeSinceCreatedDXTimestampLabel" destination="KCi-Qi-btl" id="OH9-q6-WVC"/>
                                             <outlet property="tweetTextLabel" destination="OdE-UJ-yKr" id="kvY-ac-Y3O"/>
                                             <outlet property="userNameLabel" destination="vK4-dv-DdJ" id="qxy-PM-Zgn"/>
                                             <outlet property="userScreenNameLabel" destination="JXU-5v-fI0" id="wit-fp-ccg"/>
