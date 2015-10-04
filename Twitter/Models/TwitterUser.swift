@@ -77,8 +77,8 @@ class TwitterUser: NSObject {
     TwitterClient.sharedInstance.loginWithCompletion(completion)
   }
   
-  class func tweetText(text: String?, completion: (success: Bool?, error: NSError?) -> ()) {
-    TwitterClient.sharedInstance.tweetText(text, completion: completion)
+  class func tweetText(text: String?, inReplyToStatusID: String?, completion: (success: Bool?, error: NSError?) -> ()) {
+    TwitterClient.sharedInstance.tweetText(text, inReplyToStatusID: inReplyToStatusID, completion: completion)
   }
   
   

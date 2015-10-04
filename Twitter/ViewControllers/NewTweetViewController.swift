@@ -25,6 +25,9 @@ class NewTweetViewController: UIViewController {
   // MARK: - Properties
   weak var delegate: AnyObject?
   var currentUser: TwitterUser!
+  
+  var inReplyToStatusID: String?
+  var inReplyToUserScreenname: String?
 
   // MARK: - Lifecycle
   
@@ -49,9 +52,14 @@ class NewTweetViewController: UIViewController {
   }
   
   private func setupInitialValues(){
+    currentUser = TwitterUser.currentUser
     profileImageView.setImageWithURL(currentUser.profileImageURL())
     userNameLabel.text = currentUser.name
     userScreennameLabel.text = "@" + currentUser.screenname
+    
+    if let inReplyToUserScreenname = inReplyToUserScreenname {
+      tweetTextView.text = "@" + inReplyToUserScreenname + " "
+    }
   }
   
   // MARK: - Behavior
@@ -69,7 +77,7 @@ class NewTweetViewController: UIViewController {
 
   @IBAction func onTapTweetBarButton(sender: UIBarButtonItem) {
     if tweetTextView.text.characters.count > 0 {
-      TwitterUser.tweetText(tweetTextView.text, completion:
+      TwitterUser.tweetText(tweetTextView.text, inReplyToStatusID: inReplyToStatusID, completion:
         {(success: Bool?, error: NSError?) -> () in
           if let error = error {
             print(error.localizedDescription)

@@ -14,6 +14,7 @@ class Tweet: NSObject {
   let createdAt: String!
   let favoriteCount: Int!
   let idString: String!
+  let id: Int!
   let retweetCount: Int!
   let text: String!
   let userName: String!
@@ -33,6 +34,7 @@ class Tweet: NSObject {
     text = dictionary["text"]?.string
     userName = dictionary["user"]!["name"].string
     userScreenname = dictionary["user"]!["screen_name"].string
+    id = dictionary["id"]?.int
     
     var profileImageURLString = dictionary["user"]!["profile_image_url_https"].string
     let range = profileImageURLString!.rangeOfString("normal.jpg", options: .RegularExpressionSearch)

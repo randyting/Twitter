@@ -10,6 +10,8 @@ import UIKit
 
 class TweetDetailTableViewController: UITableViewController {
   
+  private let replyToTweetSegueIdentifier = "ReplyToTweetSegue"
+  
   @IBOutlet private weak var tweetTextLabel: UILabel!
   @IBOutlet private weak var userScreennameLabel: UILabel!
   @IBOutlet private weak var profileImageView: UIImageView!
@@ -47,14 +49,16 @@ class TweetDetailTableViewController: UITableViewController {
   }
   
   
-  /*
+
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
+    if segue.identifier == replyToTweetSegueIdentifier {
+      let vc = segue.destinationViewController as? NewTweetViewController
+      vc?.inReplyToUserScreenname = tweet.userScreenname
+      vc?.inReplyToStatusID = tweet.idString
+    }
   }
-  */
   
 }

@@ -419,7 +419,13 @@
                             <outlet property="delegate" destination="e3V-5M-tWS" id="OA7-4j-HMD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tweet" id="sn6-Ju-er9"/>
+                    <navigationItem key="navigationItem" title="Tweet" id="sn6-Ju-er9">
+                        <barButtonItem key="rightBarButtonItem" title="Reply" id="7Gl-fo-fG0">
+                            <connections>
+                                <segue destination="aIU-xz-JOJ" kind="push" identifier="ReplyToTweetSegue" id="cX1-mO-Q2Z"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="createdTimeLabel" destination="9dn-Aq-2Xb" id="PbU-sO-fS1"/>
                         <outlet property="favoriteButton" destination="I9Q-iK-P2F" id="OVF-vM-JFx"/>
@@ -542,4 +548,7 @@
             <point key="canvasLocation" x="669" y="1239"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cX1-mO-Q2Z"/>
+    </inferredMetricsTieBreakers>
 </document>

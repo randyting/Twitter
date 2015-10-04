@@ -86,9 +86,12 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
   }
   
-  func tweetText(text: String?, completion: (success: Bool?, error: NSError?) -> ()) {
-    
-    let parameters = ["status":text!]
+  func tweetText(text: String?, inReplyToStatusID: String?, completion: (success: Bool?, error: NSError?) -> ()) {
+
+    var parameters: [String:AnyObject] = ["status":text!]
+    if let inReplyToStatusID = inReplyToStatusID{
+      parameters["in_reply_to_status_id"] = inReplyToStatusID
+    }
     POST("/1.1/statuses/update.json",
       parameters: parameters,
       constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
