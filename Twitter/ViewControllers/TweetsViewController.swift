@@ -16,6 +16,7 @@ class TweetsViewController: UIViewController {
   // MARK: - Properities
   var currentUser: TwitterUser!
   var tweets: [Tweet]?
+  let refreshControl = UIRefreshControl()
   
   // MARK: - Storyboard
   @IBOutlet weak var tweetsTableView: UITableView!
@@ -25,6 +26,7 @@ class TweetsViewController: UIViewController {
     super.viewDidLoad()
     
     setupTweetsTableView(tweetsTableView)
+    setupRefreshControl(refreshControl)
     setupInitialValues()
   }
   
@@ -44,10 +46,7 @@ class TweetsViewController: UIViewController {
   private func setupInitialValues(){
     title = "Home"
     currentUser = TwitterUser.currentUser
-    currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
-      self.tweets = tweets
-      self.tweetsTableView.reloadData()
-    }
+    refreshTweets()
   }
   
   private func loadFiveTweets() {
@@ -60,10 +59,25 @@ class TweetsViewController: UIViewController {
     }
   }
   
+  private func setupRefreshControl(refreshControl: UIRefreshControl) {
+    refreshControl.addTarget(self, action: "refreshTweets", forControlEvents: .ValueChanged)
+    tweetsTableView.insertSubview(refreshControl, atIndex: 0)
+  }
+  
   // MARK: - Behavior
   
   @IBAction func onLogoutButtonTapped(sender: UIBarButtonItem) {
     TwitterUser.currentUser?.logout()
+  }
+  
+  func refreshTweets(){
+    currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
+      self.tweets = tweets
+      self.tweetsTableView.reloadData()
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.refreshControl.endRefreshing()
+      })
+    }
   }
   
   /*
@@ -78,7 +92,7 @@ class TweetsViewController: UIViewController {
   
 }
 
-// MARK: - UITableView Delegate and Datasource
+  // MARK: - UITableView Delegate and Datasource
 
 extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
   
@@ -86,6 +100,7 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = tweetsTableView.dequeueReusableCellWithIdentifier(tweetsCellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
     
     cell.tweet = tweets?[indexPath.row]
+    cell.delegate = self
     
     return cell
   }
@@ -98,5 +113,19 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
-  
+}
+
+  // MARK: - TweetTableViewCell Delegate
+
+extension TweetsViewController: TweetTableViewCellDelegate {
+  func tweetTableViewCell(tweetTableViewCell: TweetTableViewCell, didLoadImage: Bool) {
+    tweetsTableView.reloadData()
+//    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+//      self.tweetsTableView.setNeedsUpdateConstraints()
+//      UIView.animateWithDuration(0.4, animations: {
+//        self.tweetsTableView.layoutIfNeeded()
+//      })
+//    }
+
+  }
 }
