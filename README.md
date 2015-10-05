@@ -29,10 +29,9 @@ Time spent: 35 hours
 ### Walkthrough
 
 ### Notes
-- App crashes when detail view for a restaurant with a accent mark in one of its characters because the Yelp API responds with an ID included an accented character.  The app crashes because a character with an accent mark placed in a URL is not a valid URL.  TODO: Figure out how to convert the ID.
-- Carousel views do not have autoloyout constraints applied to them.  Flipping from horizontal to vertical or vice versa does not resize them while still in the business detail view.  TODO: Apply autolayout constraints programatically.
-- FiltersViewController code is not clean semantically.  Could use some re-factoring.
-- Yelp API returns reviewer information when requesting snippet information.  The intention was to show snippet image and snippet text instead of the restaurant's image and address.  Seems like a Yelp API issue.  Business detail parsing is not semantically correct because of this.
+- A couple mysterious bugs crept up on me during submission of this assignment.  Please note that my app was working flawlessly before I encountered this.  I believe the issues is with how my project files were built.  If I had more time, I would hunt these bugs down.  I would first try to rebuild my project by bringing all my source files into a clean project.  Please let me know if I should debug these issues and re-submit the assignment.  I could also potentially submit a previous (hopefully stable) commit of my assignment with all the required user stories completed.
+1.  App mysteriouly pops all view controllers off navigation stack when different elements are clicked and outputs on console "Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates."
+2.  App does not start up in simulator when debugger is not connected.  It works on hardware, but bug #1 exists on hardware. 
 
 ### Walkthrough
 
