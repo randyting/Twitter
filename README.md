@@ -30,9 +30,7 @@ Time spent: 35 hours
 
 ### Notes
 - Please use "git clone --recursive" to checkout repository.  SwiftyJSON was added as a submodule to this git repository.
-- A couple mysterious bugs crept up on me during submission of this assignment.  Please note that my app was working flawlessly before I encountered this.  I believe the issues is with how my project files were built.  If I had more time, I would hunt these bugs down.  I would first try to rebuild my project by bringing all my source files into a clean project.  Please let me know if I should debug these issues and re-submit the assignment.  I could also potentially submit a previous (hopefully stable) commit of my assignment with all the required user stories completed.
-1.  App mysteriouly pops all view controllers off navigation stack when different elements are clicked and outputs on console "Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates."
-2.  App does not start up in simulator when debugger is not connected.  It works on hardware, but the above bug exists on hardware. 
+- App does not start up in simulator when debugger is not connected.  It works on hardware. Not sure if this is an Xcode issure or a MYcode issue. 
 
 ### Walkthrough
 
