@@ -9,14 +9,17 @@
 import UIKit
 import SwiftyJSON
 
+  // MARK: - Credentials
 let twitterConsumerKey = "k1czNm79JKV5T5WLd8lPSSDBB"
 let twitterConsumerSecret = "kJzE1C4Giq4MTHNVshWRgJqLDL7Mx4ShHSjS7ZmxzyQWvIoGLw"
 let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1RequestOperationManager {
   
+  // MARK: - Properties
   private var loginCompletion: ((user: TwitterUser?, error: NSError?) -> ())?
   
+  // MARK: - Shared Instance
   class var sharedInstance: TwitterClient {
     struct Static {
       static let instance = TwitterClient(baseURL: twitterBaseURL, consumerKey: twitterConsumerKey, consumerSecret: twitterConsumerSecret)
@@ -25,7 +28,6 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
   }
   
   // MARK: - Login
-  
   func loginWithCompletion(completion: (user: TwitterUser?, error: NSError?) -> ()){
     loginCompletion = completion
     
@@ -60,6 +62,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
   }
   
+  // MARK: - Convenience
   private func getLoggedInUser(completion: ((user: TwitterUser?, error: NSError?) -> ())?){
     GET("/1.1/account/verify_credentials.json",
       parameters: nil,

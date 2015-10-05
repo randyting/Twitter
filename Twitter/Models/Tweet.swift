@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class Tweet: NSObject {
   
+  // MARK: - Properties
   let createdAt: String!
   var favoriteCount: Int!
   let idString: String!
@@ -27,6 +28,7 @@ class Tweet: NSObject {
   var favorited: Bool!
   var retweeted: Bool!
   
+  // MARK: - Init
   init(dictionary: [String: JSON]) {
     
     createdAt = dictionary["created_at"]!.string
@@ -58,6 +60,7 @@ class Tweet: NSObject {
     super.init()
   }
   
+  // MARK: - Class Methods
   class func tweets(array array: [JSON]) -> [Tweet] {
     var tweets = [Tweet]()
     for tweet in array {

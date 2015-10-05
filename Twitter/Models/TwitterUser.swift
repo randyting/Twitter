@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 
+  // MARK: - Global Notification Keys
 let userDidLoginNotification = "userDidLoginNotification"
 let userDidLogoutNotification = "userDidLogoutNotification"
 
@@ -37,7 +38,6 @@ class TwitterUser: NSObject {
   }
   
   // MARK: - NSCoding
-  
   required init(coder aDecoder: NSCoder) {
     self.name = aDecoder.decodeObjectForKey("name") as! String
     self.screenname = aDecoder.decodeObjectForKey("screenname") as! String
@@ -72,7 +72,6 @@ class TwitterUser: NSObject {
   }
   
   // MARK: - Class Methods
-  
   class func loginWithCompletion(completion: (user: TwitterUser?, error: NSError?) -> ()) {
     TwitterClient.sharedInstance.loginWithCompletion(completion)
   }

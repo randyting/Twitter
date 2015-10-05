@@ -41,7 +41,5 @@ class TwitterLoginViewController: UIViewController {
   @IBAction func onTapLoginButton(sender: AnyObject) {
     attemptToLogin()
   }
-  
-
-  
+    
 }

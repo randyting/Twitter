@@ -66,49 +66,52 @@ class TweetsViewController: UIViewController {
     refreshControl.addTarget(self, action: "refreshTweets", forControlEvents: .ValueChanged)
     tweetsTableView.insertSubview(refreshControl, atIndex: 0)
     
-    bottomRefreshControl.triggerVerticalOffset = 50
+    bottomRefreshControl.triggerVerticalOffset = 100
     bottomRefreshControl.addTarget(self, action: "loadOlderTweets", forControlEvents: .ValueChanged)
     tweetsTableView.bottomRefreshControl = bottomRefreshControl
   }
   
   // MARK: - Behavior
-  
   @IBAction func onLogoutButtonTapped(sender: UIBarButtonItem) {
     TwitterUser.currentUser?.logout()
   }
   
   func refreshTweets(){
     currentUser.homeTimelineWithParams(nil) { (tweets, error) -> () in
-      self.tweets = tweets
-      self.tweetsTableView.reloadData()
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        self.refreshControl.endRefreshing()
-      })
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        self.tweets = tweets
+        self.tweetsTableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          self.refreshControl.endRefreshing()
+        })
+      }
     }
   }
   
   func loadOlderTweets() {
     let params = TwitterHomeTimelineParameters()
     
-    params.maxId = String((tweets!.last!.id! - 1))
-    params.count = 20
-    
-    currentUser.homeTimelineWithParams(params) { (tweets, error) -> () in
-      if let error = error {
-        print(error.localizedDescription)
-      } else {
-        self.tweets? += tweets!
-        self.tweetsTableView.reloadData()
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-          self.bottomRefreshControl.endRefreshing()
-        })
+    if let tweets = tweets {  // Unwrap tweets because bottom refresh control calls selector when view is loaded
+      params.maxId = String((tweets.last!.id! - 1))
+      params.count = 20
+      
+      currentUser.homeTimelineWithParams(params) { (tweets, error) -> () in
+        if let error = error {
+          print(error.localizedDescription)
+        } else {
+          self.tweets? += tweets!
+          self.tweetsTableView.reloadData()
+          dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.bottomRefreshControl.endRefreshing()
+          })
+        }
       }
     }
-
   }
   
   // MARK: - Navigation
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if segue.identifier == newTweetSegueIdentifier {
@@ -127,11 +130,9 @@ class TweetsViewController: UIViewController {
       vc?.inReplyToStatusID = cell?.tweet.idString      
     }
   }
-  
 }
 
   // MARK: - UITableView Delegate and Datasource
-
 extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -158,22 +159,13 @@ extension TweetsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
   // MARK: - TweetTableViewCell Delegate
-
 extension TweetsViewController: TweetTableViewCellDelegate {
   func tweetTableViewCell(tweetTableViewCell: TweetTableViewCell, didLoadImage: Bool) {
     tweetsTableView.reloadData()
-//    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-//      self.tweetsTableView.setNeedsUpdateConstraints()
-//      UIView.animateWithDuration(0.4, animations: {
-//        self.tweetsTableView.layoutIfNeeded()
-//      })
-//    }
-
   }
 }
 
   // MARK: - NewTweetViewController Delegate
-
 extension TweetsViewController: NewTweetViewControllerDelegate {
   func newTweetViewController(newTweetViewController: NewTweetViewController, didPostTweetText: String) {
     //

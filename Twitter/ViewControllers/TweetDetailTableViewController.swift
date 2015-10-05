@@ -10,8 +10,10 @@ import UIKit
 
 class TweetDetailTableViewController: UITableViewController {
   
+  // MARK: - Constants
   private let replyToTweetSegueIdentifier = "ReplyToTweetSegue"
   
+  // MARK: - Storyboard Objects
   @IBOutlet private weak var tweetTextLabel: UILabel!
   @IBOutlet private weak var userScreennameLabel: UILabel!
   @IBOutlet private weak var profileImageView: UIImageView!
@@ -26,28 +28,16 @@ class TweetDetailTableViewController: UITableViewController {
   @IBOutlet private weak var replyButton: UIButton!
   @IBOutlet private weak var retweetButton: UIButton!
   
+  // MARK: - Properties
   var tweet: Tweet!
   
   // MARK: - Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     updateContent()
-    
-    
-//    self.tableView.estimatedRowHeight = 100
-//    self.tableView.rowHeight = UITableViewAutomaticDimension
-//    view.setNeedsUpdateConstraints()
-//    UIView.animateWithDuration(0.4, animations: {
-//      self.view.layoutIfNeeded()
-//    })
-    
-    
   }
   
   // MARK: - Setup
-  
   private func updateContent() {
     profileImageView.setImageWithURL(tweet.profileImageURL)
     tweetTextLabel.text = tweet.text
@@ -69,7 +59,6 @@ class TweetDetailTableViewController: UITableViewController {
   }
   
   // MARK: - Behavior
-  
   @IBAction func onTapFavoriteButton(sender: AnyObject) {
     if tweet.favorited == true{
       TwitterUser.unfavorite(tweet) { (response, error) -> () in

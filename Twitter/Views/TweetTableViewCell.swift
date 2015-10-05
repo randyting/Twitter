@@ -16,7 +16,6 @@ import UIKit
 class TweetTableViewCell: UITableViewCell {
   
   // MARK: - Storyboard Objects
-  
   @IBOutlet private weak var profileImageView: UIImageView!
   @IBOutlet private weak var mediaImageView: UIImageView!
   @IBOutlet private weak var tweetTextLabel: UILabel!
@@ -38,42 +37,11 @@ class TweetTableViewCell: UITableViewCell {
   
   var tweet: Tweet! {
     didSet{
-      
       updateContent()
-      
-      
-      //      if let mediaURL = tweet.mediaURL {
-      //        let mediaURLRequest = NSURLRequest(URL: mediaURL)
-      //        mediaImageView.setImageWithURLRequest(mediaURLRequest, placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
-      //          dispatch_async(dispatch_get_main_queue(), { () -> Void in
-      ////            self.mediaImageView.contentMode = UIViewContentMode.ScaleAspectFill
-      //            self.mediaImageView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight,
-      ////                                                      UIViewAutoresizing.FlexibleBottomMargin,
-      ////                                                    UIViewAutoresizing.FlexibleLeftMargin,
-      ////                                                    UIViewAutoresizing.FlexibleRightMargin,
-      ////                                                    UIViewAutoresizing.FlexibleTopMargin,
-      ////                                                    UIViewAutoresizing.FlexibleWidth
-      //            ]
-      //
-      //            self.mediaImageView.image = image
-      ////            self.mediaImageHeightConstraint.constant = image.size.height
-      ////            self.setNeedsUpdateConstraints()
-      ////            UIView.animateWithDuration(0.4, animations: {
-      ////              self.layoutIfNeeded()
-      ////            })
-      //            self.delegate?.tweetTableViewCell?(self, didLoadMediaImage: true)
-      //          })
-      //          }, failure: { (request: NSURLRequest!, response: NSHTTPURLResponse!, error: NSError!) -> Void in
-      //            print(error.localizedDescription)
-      //        })
-      //      }
-      
-      
     }
   }
   
   // MARK: - Setup
-  
   private func updateContent() {
     profileImageView.setImageWithURL(tweet.profileImageURL)
     tweetTextLabel.text = tweet.text
@@ -95,7 +63,6 @@ class TweetTableViewCell: UITableViewCell {
   }
   
   // MARK: - Behavior
-  
   @IBAction func onTapRetweetButton(sender: AnyObject) {
     if tweet.retweeted == true{
       TwitterUser.unretweet(tweet) { (response, error) -> () in
@@ -137,7 +104,6 @@ class TweetTableViewCell: UITableViewCell {
   }
 
   // MARK: - Lifecycle
-  
   override func awakeFromNib() {
     super.awakeFromNib()
   }
@@ -145,6 +111,5 @@ class TweetTableViewCell: UITableViewCell {
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
-  
-  
+
 }

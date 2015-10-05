@@ -18,13 +18,12 @@ class NewTweetViewController: UIViewController {
   private let maxTweetLength = 140
   
   // MARK: - Storyboard Objects
-  
   @IBOutlet private weak var userScreennameLabel: UILabel!
   @IBOutlet private weak var userNameLabel: UILabel!
   @IBOutlet private weak var profileImageView: UIImageView!
   @IBOutlet private weak var tweetTextView: UITextView!
   @IBOutlet private weak var tweetTextViewBottomToSuperHeightConstraint: NSLayoutConstraint!
-  @IBOutlet weak var characterCountBarButtonItem: UIBarButtonItem!
+  @IBOutlet private weak var characterCountBarButtonItem: UIBarButtonItem!
   
   // MARK: - Properties
   weak var delegate: AnyObject?
@@ -34,7 +33,6 @@ class NewTweetViewController: UIViewController {
   var inReplyToUserScreenname: String?
   
   // MARK: - Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupAppearance()
@@ -43,10 +41,10 @@ class NewTweetViewController: UIViewController {
   }
   
   // MARK: - Initial Setup
-  
   private func setupAppearance(){
-    // Alignes text to top in text view
+    // Aligns text to top in text view
     automaticallyAdjustsScrollViewInsets = false
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
     characterCountBarButtonItem.tintColor = UIColor.darkGrayColor()
   }
@@ -69,7 +67,6 @@ class NewTweetViewController: UIViewController {
   }
   
   // MARK: - Behavior
-  
   func willShowKeyboard(notification: NSNotification) {
     if let userInfo = notification.userInfo {
       let kbSize = ((userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().size)!
@@ -94,16 +91,6 @@ class NewTweetViewController: UIViewController {
       })
     }
   }
-  
-  /*
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  // Get the new view controller using segue.destinationViewController.
-  // Pass the selected object to the new view controller.
-  }
-  */
   
 }
 
