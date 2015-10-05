@@ -25,69 +25,125 @@ class TweetTableViewCell: UITableViewCell {
   @IBOutlet private weak var userScreenNameLabel: UILabel!
   
   @IBOutlet private weak var replyButton: UIButton!
+  
   @IBOutlet private weak var retweetButton: UIButton!
   @IBOutlet private weak var retweetCountLabel: UILabel!
   
   @IBOutlet private weak var favoriteButton: UIButton!
   @IBOutlet private weak var favoriteCountLabel: UILabel!
   
-  @IBOutlet private weak var followButton: UIButton!
   
-
   // MARK: - Properties
   weak var delegate: AnyObject?
   
   var tweet: Tweet! {
     didSet{
-      profileImageView.setImageWithURL(tweet.profileImageURL)
       
-//      if let mediaURL = tweet.mediaURL {
-//        let mediaURLRequest = NSURLRequest(URL: mediaURL)
-//        mediaImageView.setImageWithURLRequest(mediaURLRequest, placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
-//          dispatch_async(dispatch_get_main_queue(), { () -> Void in
-////            self.mediaImageView.contentMode = UIViewContentMode.ScaleAspectFill
-//            self.mediaImageView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight,
-////                                                      UIViewAutoresizing.FlexibleBottomMargin,
-////                                                    UIViewAutoresizing.FlexibleLeftMargin,
-////                                                    UIViewAutoresizing.FlexibleRightMargin,
-////                                                    UIViewAutoresizing.FlexibleTopMargin,
-////                                                    UIViewAutoresizing.FlexibleWidth
-//            ]
-//            
-//            self.mediaImageView.image = image
-////            self.mediaImageHeightConstraint.constant = image.size.height
-////            self.setNeedsUpdateConstraints()
-////            UIView.animateWithDuration(0.4, animations: {
-////              self.layoutIfNeeded()
-////            })
-//            self.delegate?.tweetTableViewCell?(self, didLoadMediaImage: true)
-//          })
-//          }, failure: { (request: NSURLRequest!, response: NSHTTPURLResponse!, error: NSError!) -> Void in
-//            print(error.localizedDescription)
-//        })
-//      }
+      updateContent()
       
-      tweetTextLabel.text = tweet.text
-      userNameLabel.text = tweet.userName
-      userScreenNameLabel.text = "@" + tweet.userScreenname
-      favoriteCountLabel.text = String(tweet.favoriteCount)
-      retweetCountLabel.text = String(tweet.retweetCount)
-      timeSinceCreatedDXTimestampLabel.timestamp = TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)
+      
+      //      if let mediaURL = tweet.mediaURL {
+      //        let mediaURLRequest = NSURLRequest(URL: mediaURL)
+      //        mediaImageView.setImageWithURLRequest(mediaURLRequest, placeholderImage: nil, success: { (request: NSURLRequest!, response: NSHTTPURLResponse!, image: UIImage!) -> Void in
+      //          dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      ////            self.mediaImageView.contentMode = UIViewContentMode.ScaleAspectFill
+      //            self.mediaImageView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight,
+      ////                                                      UIViewAutoresizing.FlexibleBottomMargin,
+      ////                                                    UIViewAutoresizing.FlexibleLeftMargin,
+      ////                                                    UIViewAutoresizing.FlexibleRightMargin,
+      ////                                                    UIViewAutoresizing.FlexibleTopMargin,
+      ////                                                    UIViewAutoresizing.FlexibleWidth
+      //            ]
+      //
+      //            self.mediaImageView.image = image
+      ////            self.mediaImageHeightConstraint.constant = image.size.height
+      ////            self.setNeedsUpdateConstraints()
+      ////            UIView.animateWithDuration(0.4, animations: {
+      ////              self.layoutIfNeeded()
+      ////            })
+      //            self.delegate?.tweetTableViewCell?(self, didLoadMediaImage: true)
+      //          })
+      //          }, failure: { (request: NSURLRequest!, response: NSHTTPURLResponse!, error: NSError!) -> Void in
+      //            print(error.localizedDescription)
+      //        })
+      //      }
+      
       
     }
   }
   
+  // MARK: - Setup
+  
+  private func updateContent() {
+    profileImageView.setImageWithURL(tweet.profileImageURL)
+    tweetTextLabel.text = tweet.text
+    userNameLabel.text = tweet.userName
+    userScreenNameLabel.text = "@" + tweet.userScreenname
+    favoriteCountLabel.text = String(tweet.favoriteCount)
+    retweetCountLabel.text = String(tweet.retweetCount)
+    timeSinceCreatedDXTimestampLabel.timestamp = TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)
+    if tweet.favorited == true {
+      favoriteButton.setImage(UIImage(named: "favorite_on"), forState: UIControlState.Normal)
+    } else {
+      favoriteButton.setImage(UIImage(named: "favorite"), forState: UIControlState.Normal)
+    }
+    if tweet.retweeted == true {
+      retweetButton.setImage(UIImage(named: "retweet_on"), forState: UIControlState.Normal)
+    } else {
+      retweetButton.setImage(UIImage(named: "retweet"), forState: UIControlState.Normal)
+    }
+  }
+  
+  // MARK: - Behavior
+  
+  @IBAction func onTapRetweetButton(sender: AnyObject) {
+    if tweet.retweeted == true{
+      TwitterUser.unretweet(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Unretweet Error: \(error.localizedDescription)")
+        } else {
+          self.updateContent()
+        }
+      }
+    } else {
+      TwitterUser.retweet(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Retweet Error: \(error.localizedDescription)")
+        } else {
+          self.updateContent()
+        }
+      }
+    }
+  }
+  
+  @IBAction func onTapFavoriteButton(sender: UIButton) {
+    if tweet.favorited == true{
+      TwitterUser.unfavorite(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Unfavorite Error: \(error.localizedDescription)")
+        } else {
+          self.updateContent()
+        }
+      }
+    } else {
+      TwitterUser.favorite(tweet) { (response, error) -> () in
+        if let error = error {
+          print("Favorite Error: \(error.localizedDescription)")
+        } else {
+          self.updateContent()
+        }
+      }
+    }
+  }
+
   // MARK: - Lifecycle
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
   }
   
   

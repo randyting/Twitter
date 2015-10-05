@@ -33,13 +33,7 @@ class TweetDetailTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    profileImageView.setImageWithURL(tweet.profileImageURL)
-    tweetTextLabel.text = tweet.text
-    userNameLabel.text = tweet.userName
-    userScreennameLabel.text = "@" + tweet.userScreenname
-    favoriteCountLabel.text = String(tweet.favoriteCount)
-    retweetCountLabel.text = String(tweet.retweetCount)
-    createdTimeLabel.text = TwitterDetailDateFormatter.sharedInstance.stringFromDate(TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)!)
+    updateContent()
     
     
 //    self.tableView.estimatedRowHeight = 100
@@ -52,6 +46,28 @@ class TweetDetailTableViewController: UITableViewController {
     
   }
   
+  // MARK: - Setup
+  
+  private func updateContent() {
+    profileImageView.setImageWithURL(tweet.profileImageURL)
+    tweetTextLabel.text = tweet.text
+    userNameLabel.text = tweet.userName
+    userScreennameLabel.text = "@" + tweet.userScreenname
+    favoriteCountLabel.text = String(tweet.favoriteCount)
+    retweetCountLabel.text = String(tweet.retweetCount)
+    createdTimeLabel.text = TwitterDetailDateFormatter.sharedInstance.stringFromDate(TwitterDateFormatter.sharedInstance.dateFromString(tweet.createdAt)!)
+    if tweet.favorited == true {
+      favoriteButton.setImage(UIImage(named: "favorite_on"), forState: UIControlState.Normal)
+    } else {
+      favoriteButton.setImage(UIImage(named: "favorite"), forState: UIControlState.Normal)
+    }
+    if tweet.retweeted == true {
+      retweetButton.setImage(UIImage(named: "retweet_on"), forState: UIControlState.Normal)
+    } else {
+      retweetButton.setImage(UIImage(named: "retweet"), forState: UIControlState.Normal)
+    }
+  }
+  
   // MARK: - Behavior
   
   @IBAction func onTapFavoriteButton(sender: AnyObject) {
@@ -60,7 +76,7 @@ class TweetDetailTableViewController: UITableViewController {
         if let error = error {
           print("Unfavorite Error: \(error.localizedDescription)")
         } else {
-          self.favoriteCountLabel.text = String(self.tweet.favoriteCount)
+          self.updateContent()
         }
       }
     } else {
@@ -68,7 +84,7 @@ class TweetDetailTableViewController: UITableViewController {
         if let error = error {
           print("Favorite Error: \(error.localizedDescription)")
         } else {
-          self.favoriteCountLabel.text = String(self.tweet.favoriteCount)
+          self.updateContent()
         }
       }
     }
@@ -80,7 +96,7 @@ class TweetDetailTableViewController: UITableViewController {
         if let error = error {
           print("Unretweet Error: \(error.localizedDescription)")
         } else {
-          self.retweetCountLabel.text = String(self.tweet.retweetCount)
+          self.updateContent()
         }
       }
     } else {
@@ -88,7 +104,7 @@ class TweetDetailTableViewController: UITableViewController {
         if let error = error {
           print("Retweet Error: \(error.localizedDescription)")
         } else {
-          self.retweetCountLabel.text = String(self.tweet.retweetCount)
+          self.updateContent()
         }
       }
     }

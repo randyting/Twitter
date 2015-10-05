@@ -14,6 +14,9 @@ import UIKit
 
 class NewTweetViewController: UIViewController {
   
+  // MARK: - Constants
+  private let maxTweetLength = 140
+  
   // MARK: - Storyboard Objects
   
   @IBOutlet private weak var userScreennameLabel: UILabel!
@@ -21,6 +24,7 @@ class NewTweetViewController: UIViewController {
   @IBOutlet private weak var profileImageView: UIImageView!
   @IBOutlet private weak var tweetTextView: UITextView!
   @IBOutlet private weak var tweetTextViewBottomToSuperHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var characterCountBarButtonItem: UIBarButtonItem!
   
   // MARK: - Properties
   weak var delegate: AnyObject?
@@ -28,7 +32,7 @@ class NewTweetViewController: UIViewController {
   
   var inReplyToStatusID: String?
   var inReplyToUserScreenname: String?
-
+  
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
@@ -39,16 +43,18 @@ class NewTweetViewController: UIViewController {
   }
   
   // MARK: - Initial Setup
-
+  
   private func setupAppearance(){
     // Alignes text to top in text view
     automaticallyAdjustsScrollViewInsets = false
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
+    characterCountBarButtonItem.tintColor = UIColor.darkGrayColor()
   }
   
   private func setupTextView(textView: UITextView) {
     textView.keyboardType = .Twitter
     textView.becomeFirstResponder()
+    textView.delegate = self
   }
   
   private func setupInitialValues(){
@@ -56,10 +62,10 @@ class NewTweetViewController: UIViewController {
     profileImageView.setImageWithURL(currentUser.profileImageURL())
     userNameLabel.text = currentUser.name
     userScreennameLabel.text = "@" + currentUser.screenname
-    
     if let inReplyToUserScreenname = inReplyToUserScreenname {
       tweetTextView.text = "@" + inReplyToUserScreenname + " "
     }
+    characterCountBarButtonItem.title = String((tweetTextView.text as NSString).length)
   }
   
   // MARK: - Behavior
@@ -70,11 +76,11 @@ class NewTweetViewController: UIViewController {
       tweetTextViewBottomToSuperHeightConstraint.constant = kbSize.height
     }
   }
-
+  
   @IBAction func onTapCancelBarButton(sender: UIBarButtonItem) {
     navigationController?.popViewControllerAnimated(true)
   }
-
+  
   @IBAction func onTapTweetBarButton(sender: UIBarButtonItem) {
     if tweetTextView.text.characters.count > 0 {
       TwitterUser.tweetText(tweetTextView.text, inReplyToStatusID: inReplyToStatusID, completion:
@@ -101,3 +107,22 @@ class NewTweetViewController: UIViewController {
   
 }
 
+extension NewTweetViewController: UITextViewDelegate {
+  
+  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    let currentString: NSString = tweetTextView.text
+    let newString: NSString =
+    currentString.stringByReplacingCharactersInRange(range, withString: text)
+    return newString.length <= maxTweetLength
+  }
+  
+  func textViewDidChange(textView: UITextView) {
+    let text = textView.text as NSString
+    if text.length == 0 {
+      characterCountBarButtonItem.title = ""
+    } else {
+      characterCountBarButtonItem.title = String(text.length)
+    }
+  }
+  
+}

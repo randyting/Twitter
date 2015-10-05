@@ -14,6 +14,7 @@ class TweetsViewController: UIViewController {
   private let tweetsCellReuseIdentifier = "tweetsCellReuseIdentifier"
   private let newTweetSegueIdentifier = "NewTweetSegue"
   private let tweetDetailSegueIdentifier = "TweetDetailTableViewControllerSegue"
+  private let replyFromTweetsViewSegueIdentifier = "ReplyFromTweetsViewSegue"
   
   // MARK: - Properities
   private var currentUser: TwitterUser!
@@ -35,11 +36,6 @@ class TweetsViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     refreshTweets()
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   // MARK: - Initial Setup
@@ -99,9 +95,14 @@ class TweetsViewController: UIViewController {
       let cell = sender as? TweetTableViewCell
       let vc = segue.destinationViewController as? TweetDetailTableViewController
       vc?.tweet = tweets![tweetsTableView.indexPathForCell(cell!)!.row]
+    } else if segue.identifier == replyFromTweetsViewSegueIdentifier {
+      print("from reply button in table view")
+      let replyButton = sender as? UIButton
+      let cell = replyButton?.superview?.superview as? TweetTableViewCell
+      let vc = segue.destinationViewController as? NewTweetViewController
+      vc?.inReplyToUserScreenname = cell?.tweet.userScreenname
+      vc?.inReplyToStatusID = cell?.tweet.idString      
     }
-
-    
   }
   
 }
