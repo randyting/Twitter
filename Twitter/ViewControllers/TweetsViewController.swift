@@ -16,10 +16,11 @@ class TweetsViewController: UIViewController {
   private let tweetDetailSegueIdentifier = "TweetDetailTableViewControllerSegue"
   private let replyFromTweetsViewSegueIdentifier = "ReplyFromTweetsViewSegue"
   
-  // MARK: - Properities
+  // MARK: - Properties
   private var currentUser: TwitterUser!
   private var tweets: [Tweet]?
   private let refreshControl = UIRefreshControl()
+  private let bottomRefreshControl = UIRefreshControl()
   
   // MARK: - Storyboard
   @IBOutlet weak var tweetsTableView: UITableView!
@@ -49,7 +50,6 @@ class TweetsViewController: UIViewController {
   private func setupInitialValues(){
     title = "Home"
     currentUser = TwitterUser.currentUser
-    refreshTweets()
   }
   
   private func loadFiveTweets() {
@@ -65,6 +65,10 @@ class TweetsViewController: UIViewController {
   private func setupRefreshControl(refreshControl: UIRefreshControl) {
     refreshControl.addTarget(self, action: "refreshTweets", forControlEvents: .ValueChanged)
     tweetsTableView.insertSubview(refreshControl, atIndex: 0)
+    
+    bottomRefreshControl.triggerVerticalOffset = 50
+    bottomRefreshControl.addTarget(self, action: "loadOlderTweets", forControlEvents: .ValueChanged)
+    tweetsTableView.bottomRefreshControl = bottomRefreshControl
   }
   
   // MARK: - Behavior
@@ -83,6 +87,26 @@ class TweetsViewController: UIViewController {
     }
   }
   
+  func loadOlderTweets() {
+    let params = TwitterHomeTimelineParameters()
+    
+    params.maxId = String((tweets!.last!.id! - 1))
+    params.count = 20
+    
+    currentUser.homeTimelineWithParams(params) { (tweets, error) -> () in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        self.tweets? += tweets!
+        self.tweetsTableView.reloadData()
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          self.bottomRefreshControl.endRefreshing()
+        })
+      }
+    }
+
+  }
+  
   // MARK: - Navigation
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -96,7 +120,6 @@ class TweetsViewController: UIViewController {
       let vc = segue.destinationViewController as? TweetDetailTableViewController
       vc?.tweet = tweets![tweetsTableView.indexPathForCell(cell!)!.row]
     } else if segue.identifier == replyFromTweetsViewSegueIdentifier {
-      print("from reply button in table view")
       let replyButton = sender as? UIButton
       let cell = replyButton?.superview?.superview as? TweetTableViewCell
       let vc = segue.destinationViewController as? NewTweetViewController

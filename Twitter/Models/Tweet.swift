@@ -14,7 +14,7 @@ class Tweet: NSObject {
   let createdAt: String!
   var favoriteCount: Int!
   let idString: String!
-  let id: Int!
+  let id: UInt64!
   var retweetCount: Int!
   let text: String!
   let userName: String!
@@ -36,7 +36,7 @@ class Tweet: NSObject {
     text = dictionary["text"]?.string
     userName = dictionary["user"]!["name"].string
     userScreenname = dictionary["user"]!["screen_name"].string
-    id = dictionary["id"]?.int
+    id = dictionary["id"]?.uInt64
     retweetedStatus = dictionary["retweeted_status"]?.dictionary
     originalTweetIdString = dictionary["retweeted_status"]?["id_str"].string
     

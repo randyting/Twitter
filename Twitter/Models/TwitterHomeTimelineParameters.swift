@@ -11,8 +11,8 @@ import UIKit
 class TwitterHomeTimelineParameters: NSObject {
   
   var count: Int?
-  var sinceId: Int?
-  var maxId: Int?
+  var sinceId: String?
+  var maxId: String?
   
   var dictionary: [String:AnyObject]?{
     get {

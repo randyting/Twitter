@@ -75,6 +75,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
   
   // MARK: - Access
   func homeTimelineWithParams(parameters: TwitterHomeTimelineParameters?, completion: (tweets: [Tweet]?, error: NSError? ) -> () ){
+
     GET("/1.1/statuses/home_timeline.json",
       parameters: parameters?.dictionary,
       success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
@@ -192,8 +193,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
           },
           success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let unretweetedResponseAsJSON  = JSON.init(response).dictionary!
-            tweet.retweeted = false  // Looks like Twitter's servers take a while to update this it false
-            tweet.retweetCount = unretweetedResponseAsJSON["retweet_count"]?.int
+            tweet.retweeted = false  // Looks like Twitter's servers take a while to update this to false
+            tweet.retweetCount = (unretweetedResponseAsJSON["retweet_count"]?.int)! - 1
             completion(response: response, error: nil)
           }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             completion(response: nil, error: error)
