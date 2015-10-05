@@ -35,10 +35,11 @@ class TweetsViewController: UIViewController {
     
   }
   
-  override func viewWillAppear(animated: Bool) {
-    refreshTweets()
-  }
-  
+    override func viewWillAppear(animated: Bool) {
+        tweetsTableView.reloadData()
+    }
+    
+    
   // MARK: - Initial Setup
   private func setupTweetsTableView(tableView: UITableView){
     tableView.dataSource = self
@@ -50,16 +51,7 @@ class TweetsViewController: UIViewController {
   private func setupInitialValues(){
     title = "Home"
     currentUser = TwitterUser.currentUser
-  }
-  
-  private func loadFiveTweets() {
-    currentUser = TwitterUser.currentUser
-    let params = TwitterHomeTimelineParameters()
-    params.count = 5
-    currentUser.homeTimelineWithParams(params) { (tweets, error) -> () in
-      self.tweets = tweets
-      self.tweetsTableView.reloadData()
-    }
+    refreshTweets()
   }
   
   private func setupRefreshControl(refreshControl: UIRefreshControl) {
@@ -168,6 +160,6 @@ extension TweetsViewController: TweetTableViewCellDelegate {
   // MARK: - NewTweetViewController Delegate
 extension TweetsViewController: NewTweetViewControllerDelegate {
   func newTweetViewController(newTweetViewController: NewTweetViewController, didPostTweetText: String) {
-    //
+    refreshTweets()
   }
 }
